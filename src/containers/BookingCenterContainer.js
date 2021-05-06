@@ -5,6 +5,7 @@ import {useState, useEffect} from "react"
 import Reservations from "../components/Reservations"
 import NewBooking from "../components/NewBooking"
 import NewGuest from "../components/NewGuest"
+import "./BookingCenterContainer.css"
 
 const BookingCenterContainer = () => {
 
@@ -28,7 +29,7 @@ const BookingCenterContainer = () => {
     const displayResForm = () => {
         if (!createBookingForm) {
             setCreateBookingForm(true)
-            
+            setCreateGuestForm(false)
         } else {
             setCreateBookingForm(false)
         }
@@ -37,17 +38,19 @@ const BookingCenterContainer = () => {
     const displayGuestForm = () => {
         if (!createGuestForm) {
             setCreateGuestForm(true)
+            setCreateBookingForm(false)
             
         } else {
             setCreateGuestForm(false)
         }
     }
 
-    const showCreateReservation = (createBookingForm) ? <button onClick={displayResForm}>Close</button> : <button onClick={displayResForm}>Create Booking</button>
+    const showCreateReservation = (createBookingForm) ? <button onClick={displayResForm} className="create-buttons">Close</button> : <button onClick={displayResForm} className="create-buttons">Create Booking</button>
 
-    const showCreateGuest = (createGuestForm) ? <button onClick={displayGuestForm}>Close</button> : <button onClick={displayGuestForm}>Create Guest</button>
+    const showCreateGuest = (createGuestForm) ? <button onClick={displayGuestForm} className="create-buttons">Close</button> : <button onClick={displayGuestForm} className="create-buttons">Create Guest</button>
 
     const createNewBooking = (submitted) => {
+        console.log(submitted)
         createReservation(submitted)
         displayResForm()
     }

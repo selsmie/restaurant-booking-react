@@ -1,4 +1,5 @@
 import {useState} from "react"
+import "./NewBooking.css"
 
 const NewBooking = ({showForm, allGuests, allRestaurants, onSubmittedBooking}) => {
 
@@ -19,6 +20,14 @@ const NewBooking = ({showForm, allGuests, allRestaurants, onSubmittedBooking}) =
     }
 
     const handleGuestChange = (evt) => {
+        // setSelectedGuest(allGuests.find(guest => guest.id = evt.target.value[0]))
+        // console.log(evt.target.value.split(",")[0].trim())
+        // console.log(evt.target.value.split(",")[1].trim())
+        // const surnames = allGuests.filter((guest) => evt.target.value.split(",")[0].trim() === guest.lastName)
+        // console.log(surnames)
+        // console.log(evt.target.value.split(",")[1])
+        // console.log(surnames.filter((guest) => evt.target.value.split(",")[1].trim() === guest.firstName))
+        // setSelectedGuest(surnames.filter((guest) => evt.target.value.split(",")[1] === guest.firstName))
         setSelectedGuest(allGuests[evt.target.value])
         setRestaurant(allRestaurants[0])
     }
@@ -63,11 +72,11 @@ const NewBooking = ({showForm, allGuests, allRestaurants, onSubmittedBooking}) =
     })
 
     const displayRestaurants = allRestaurants.map((restaurant, index) => {
-        return <option value={index} key={restaurant.id}>{restaurant.name}</option>
+        return <option value={index} key={restaurant.id} id={index}>{restaurant.name}</option>
     })
 
     const displayForm = (showForm) ? 
-        <form onSubmit={handleBookingSave}>
+        <form onSubmit={handleBookingSave} className="booking-form">
             <input list="guests" placeholder="Select Guest" onChange={handleGuestChange}/>
             <datalist id="guests">
                 {displayGuests}

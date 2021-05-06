@@ -1,0 +1,8 @@
+.booking-form {
+    display: flex;
+    flex-direction: column;
+}
+
+datalist {
+    display: none;
+}

@@ -1,0 +1,61 @@
+.reservations {
+    overflow: scroll;
+    background-color: palegoldenrod;
+    width: max-content;
+    /* max-height: 100%; */
+}
+
+.reservations::-webkit-scrollbar {
+    display: none;
+}
+
+.single-booking {
+    border: 3px black solid;
+    margin: 10px;
+    width: 240px;
+    padding: 10px;
+}
+
+#booking-number {
+    margin: 0px;
+}
+
+#booking-date {
+    margin: 0px;
+}
+
+#booking-name {
+    margin: 0px;
+}
+
+.contact-details {
+    margin: 0px;
+}
+
+#booking-phone {
+    margin: 0px;
+}
+
+#booking-email {
+    margin: 0px;
+}
+
+#booking-covers {
+    margin: 0px;
+}
+
+#booking-notes {
+    margin: 0px;
+}
+
+#booked {
+    border-color: green;
+}
+
+#seated {
+    border-color: orange;
+}
+
+#departed {
+    border-color: red;
+}

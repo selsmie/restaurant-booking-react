@@ -1,0 +1,10 @@
+.create-buttons {
+    width: 130px;
+    height: 40px;
+    margin: 5px 6.5px;
+}
+
+.booking-center {
+    overflow: scroll;
+    height: 100vh;
+}
