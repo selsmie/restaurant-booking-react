@@ -1,0 +1,1 @@
+const restaurantURL = "localhost:8080/restaurants/"
