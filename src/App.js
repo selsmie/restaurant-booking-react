@@ -1,7 +1,9 @@
+import BookingCenterContainer from "./containers/BookingCenterContainer"
+
 function App() {
   return (
     <div className="App">
-      test
+      <BookingCenterContainer/>
     </div>
   );
 }

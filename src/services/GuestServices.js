@@ -1,4 +1,4 @@
-const guestURL = "localhost:8080/guests/"
+const guestURL = "http://localhost:8080/guests/"
 
 const getAllGuests = () => {
     return fetch(guestURL)
@@ -33,3 +33,4 @@ const deleteGuest = (id) => {
     })
 }
 
+export {getAllGuests, createGuest, updateGuest, deleteGuest}
