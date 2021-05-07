@@ -1,8 +1,40 @@
 .booking-form {
     display: flex;
     flex-direction: column;
+    padding: 5px 10px 10px 10px;
+    background-color: indianred;
 }
 
-datalist {
-    display: none;
+.booking-form > input {
+    margin-top: 5px;
+    border-radius: 5px;
+    padding-left: 5px;
+    height: 25px;
+}
+
+.cover-restaurant {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#covers {
+    margin-top: 5px;
+    border-radius: 5px;
+    padding-left: 5px;
+    height: 25px;
+    margin-right: 2.5px;
+}
+
+#restaurants {
+    margin-top: 5px;
+    border-radius: 5px;
+    padding-left: 5px;
+    height: 30px;
+    margin-left: 2.5px;
+}
+
+#notes {
+    margin-top: 5px;
+    border-radius: 5px;
+    padding-left: 5px;
 }

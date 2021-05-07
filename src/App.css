@@ -4,3 +4,11 @@
     column-gap: 10px;
     background-color: palegreen;
 }
+
+body {
+    height: 100vh;
+}
+
+body::-webkit-scrollbar {
+    /* display: none; */
+}

@@ -1,4 +1,5 @@
 import {useState} from "react"
+import "./NewGuest.css"
 
 const NewGuest = ({showGuestForm, onSubmitGuest}) => {
 
@@ -44,7 +45,7 @@ const NewGuest = ({showGuestForm, onSubmitGuest}) => {
     }
 
     const displayGuestForm = (showGuestForm) ? 
-        <form onSubmit={handleGuestSubmit}>
+        <form onSubmit={handleGuestSubmit} className="guest-form">
             <input type="text" name="firstName" id="firstName" placeholder="First Name" required onChange={handleFirstName}/>
             <input type="text" name="firstName" id="firstName" placeholder="Last Name" required onChange={handleLastName}/>
             <input type="text" name="phoneNumber" id="phoneNumber" placeholder="Phone Number" required onChange={handlePhoneNumber}/>

@@ -1,0 +1,13 @@
+.guest-form {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 10px 10px 10px;
+    background-color: indianred;
+}
+
+.guest-form > input {
+    margin-top: 5px;
+    border-radius: 5px;
+    padding-left: 5px;
+    height: 25px;
+}

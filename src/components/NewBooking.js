@@ -4,7 +4,7 @@ import "./NewBooking.css"
 const NewBooking = ({showForm, allGuests, allRestaurants, onSubmittedBooking}) => {
 
     const [selectedGuest, setSelectedGuest] = useState("")
-    const [covers, setCovers] = useState(0)
+    const [covers, setCovers] = useState(1)
     const [restaurant, setRestaurant] = useState("")
     const [date, setDate] = useState("")
     const [time, setTime] = useState("")
@@ -12,22 +12,23 @@ const NewBooking = ({showForm, allGuests, allRestaurants, onSubmittedBooking}) =
 
     const clearStates = () => {
         setSelectedGuest("")
-        setCovers(0)
+        setCovers(1)
         setRestaurant("")
         setDate("")
         setTime("")
         setNotes("")
     }
 
+
+    const d = new Date()
+    const year = d.getFullYear()
+    const day = (d.getDate() < 10) ? (`0${d.getDate()}`) : (d.getDate())
+    const month = (d.getMonth() + 1 < 10) ? (`0${d.getMonth() + 1}`) : (d.getMonth() + 1)
+    const hour = (d.getHours() < 10) ? (`0${d.getHours()}`) : (d.getHours())
+    const mins = (d.getMinutes() < 10) ? (`0${d.getMinutes()}`) : (d.getMinutes())
+    const current = `${year}-${month}-${day}T${hour}:${mins}`
+
     const handleGuestChange = (evt) => {
-        // setSelectedGuest(allGuests.find(guest => guest.id = evt.target.value[0]))
-        // console.log(evt.target.value.split(",")[0].trim())
-        // console.log(evt.target.value.split(",")[1].trim())
-        // const surnames = allGuests.filter((guest) => evt.target.value.split(",")[0].trim() === guest.lastName)
-        // console.log(surnames)
-        // console.log(evt.target.value.split(",")[1])
-        // console.log(surnames.filter((guest) => evt.target.value.split(",")[1].trim() === guest.firstName))
-        // setSelectedGuest(surnames.filter((guest) => evt.target.value.split(",")[1] === guest.firstName))
         setSelectedGuest(allGuests[evt.target.value])
         setRestaurant(allRestaurants[0])
     }
@@ -40,16 +41,15 @@ const NewBooking = ({showForm, allGuests, allRestaurants, onSubmittedBooking}) =
         setRestaurant(allRestaurants[0])
     }
 
-    const handleDate = (evt) => {
-        setDate(evt.target.value)
-    }
-
-    const handleTime = (evt) => {
-        setTime(evt.target.value)
-    }
-
     const handleNotes = (evt) => {
         setNotes(evt.target.value)
+    }
+
+    const handleDateTime = (evt) => {
+        setDate(evt.target.value.split("T")[0].trim())
+        setTime(evt.target.value.split("T")[1].trim())
+        // console.log(evt.target.value)
+        console.log(current)
     }
 
     const handleBookingSave = (evt) => {
@@ -75,18 +75,22 @@ const NewBooking = ({showForm, allGuests, allRestaurants, onSubmittedBooking}) =
         return <option value={index} key={restaurant.id} id={index}>{restaurant.name}</option>
     })
 
+
+
+
     const displayForm = (showForm) ? 
         <form onSubmit={handleBookingSave} className="booking-form">
             <input list="guests" placeholder="Select Guest" onChange={handleGuestChange}/>
             <datalist id="guests">
                 {displayGuests}
             </datalist>
-            <input type="number" name="covers" id="covers" placeholder="Covers" max="10" min="1" required onChange={handleCoversChange}/>
-            <select name="restaurants" id="restaurants" onChange={handleRestaurantChange}>
-                {displayRestaurants}
-            </select>
-            <input type="date" id="date" required onChange={handleDate}/>
-            <input type="time" placeholder="Time" id="time" required onChange={handleTime}/>
+            <div className="cover-restaurant">
+                <input type="number" name="covers" id="covers" placeholder="Covers" max="10" min="1" required onChange={handleCoversChange}/>
+                <select name="restaurants" id="restaurants" onChange={handleRestaurantChange}>
+                    {displayRestaurants}
+                </select>
+            </div>
+            <input type="datetime-local" name="datetime"  min={current} id="datetime" defaultValue={current} onChange={handleDateTime}/>
             <textarea name="notes" id="notes" cols="15" rows="5" onChange={handleNotes}/>
             <input type="submit" value="Create booking" id="create-booking-button"/>
         </form> : null

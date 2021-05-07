@@ -50,7 +50,6 @@ const BookingCenterContainer = () => {
     const showCreateGuest = (createGuestForm) ? <button onClick={displayGuestForm} className="create-buttons">Close</button> : <button onClick={displayGuestForm} className="create-buttons">Create Guest</button>
 
     const createNewBooking = (submitted) => {
-        console.log(submitted)
         createReservation(submitted)
         displayResForm()
     }
@@ -63,8 +62,10 @@ const BookingCenterContainer = () => {
 
     return (
         <aside className="booking-center">
-            {showCreateReservation}
-            {showCreateGuest}
+            <div className="button-container">
+                {showCreateReservation}
+                {showCreateGuest}
+            </div>
             <NewBooking showForm={createBookingForm} allGuests={allGuests} allRestaurants={allRestaurants} onSubmittedBooking={createNewBooking}/>
             <NewGuest showGuestForm={createGuestForm} onSubmitGuest={createNewGuest}/>
             <Reservations reservations={allReservations}/>
