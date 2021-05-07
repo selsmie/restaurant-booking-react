@@ -2,11 +2,10 @@
     overflow: scroll;
     background-color: palegoldenrod;
     width: max-content;
-    
 }
 
 .reservations::-webkit-scrollbar {
-    /* display: none; */
+    display: none;
 }
 
 .single-booking {

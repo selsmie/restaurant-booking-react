@@ -1,6 +1,7 @@
 import {getAllReservations, updateReservation, createReservation, deleteReservation} from "../services/ReservationServices"
 import {getAllRestaurants, updateRestaurant, createRestaurant, deleteRestaurant} from "../services/RestaurantServices"
 import {getAllGuests, updateGuest, createGuest, deleteGuest} from "../services/GuestServices"
+import {getAllTables, updateTable} from "../services/TableService"
 import {useState, useEffect} from "react"
 import Reservations from "../components/Reservations"
 import NewBooking from "../components/NewBooking"
@@ -14,6 +15,7 @@ const BookingCenterContainer = () => {
     const [allRestaurants, setAllRestaurants] = useState([])
     const [createBookingForm, setCreateBookingForm] = useState(false)
     const [createGuestForm, setCreateGuestForm] = useState(false)
+    const [allTables, setAllTables] = useState([])
 
     useEffect(() => {
         getAllGuests()
@@ -24,6 +26,9 @@ const BookingCenterContainer = () => {
 
         getAllRestaurants()
             .then(data => setAllRestaurants(data))
+
+        getAllTables()
+            .then(data => setAllTables(data))
     }, [createBookingForm])
 
     const displayResForm = () => {

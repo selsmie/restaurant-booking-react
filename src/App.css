@@ -3,6 +3,7 @@
     grid-template-columns: max-content auto;
     column-gap: 10px;
     background-color: palegreen;
+    height: 100vh;
 }
 
 body {
