@@ -58,3 +58,11 @@
 #departed {
     border-color: red;
 }
+
+.contact-details {
+    display: none;
+}
+
+.details-button-close {
+    display: none;
+}

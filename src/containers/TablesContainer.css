@@ -1,4 +1,6 @@
-.table {
+.square {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
     border: 1px black solid;
     min-width: 150px;
     max-width: max-content;
@@ -8,6 +10,29 @@
     margin: 5px;
     background-color: white;
     text-align: center;
+}
+
+.round {
+    display: grid;
+    border: 1px black solid;
+    min-width: 150px;
+    max-width: max-content;
+    min-height: 130px;
+    max-height: max-content;
+    padding: 10px;
+    margin: 5px;
+    background-color: white;
+    text-align: center;
+    border-radius: 50%;
+}
+
+.table-details {
+    padding-top: 15px;
+    margin: 0;
+}
+
+.guest-details {
+    margin: 0;
 }
 
 #table1 {

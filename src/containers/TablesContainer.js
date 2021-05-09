@@ -12,7 +12,7 @@ const TablesContainer = () => {
     }, [])
 
     const displayTables = (allTables.length) ? allTables.map((table, index) => {
-        return <div className="table" id={"table"+table.number} key={index}>No: {table.number} - ({table.capacity}) {(table.reservations.length) ? <p>Guest: {table.reservations[0].guest.lastName}</p>: null}
+        return <div className={table.shape} id={"table"+table.number} key={index}><p className="table-details">No: {table.number} - ({table.capacity})</p> {(table.reservations.length) ? <p className="guest-details">Guest: {table.reservations[0].guest.lastName}</p>: null}
             </div>
     }) : null
     return (
