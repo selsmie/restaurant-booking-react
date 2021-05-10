@@ -1,12 +1,12 @@
-import {getAllReservations, updateReservation, createReservation, deleteReservation} from "../services/ReservationServices"
-import {getAllRestaurants, updateRestaurant, createRestaurant, deleteRestaurant} from "../services/RestaurantServices"
-import {getAllGuests, updateGuest, createGuest, deleteGuest} from "../services/GuestServices"
-import {getAllTables, updateTable} from "../services/TableService"
+import {getAllReservations, updateReservation, createReservation, departReservation} from "../services/ReservationServices"
+import {getAllRestaurants} from "../services/RestaurantServices"
+import {getAllGuests, createGuest} from "../services/GuestServices"
 import {useState, useEffect} from "react"
 import Reservations from "../components/Reservations"
 import NewBooking from "../components/NewBooking"
 import NewGuest from "../components/NewGuest"
 import "./BookingCenterContainer.css"
+import {getAllTables} from "../services/TableService"
 
 const BookingCenterContainer = () => {
 
@@ -18,6 +18,11 @@ const BookingCenterContainer = () => {
     const [allTables, setAllTables] = useState([])
 
     useEffect(() => {
+        getAllTables()
+            .then(data => setAllTables(data))
+    }, [])
+
+    useEffect(() => {
         getAllGuests()
             .then(data => setAllGuests(data))
         
@@ -26,9 +31,6 @@ const BookingCenterContainer = () => {
 
         getAllRestaurants()
             .then(data => setAllRestaurants(data))
-
-        getAllTables()
-            .then(data => setAllTables(data))
     }, [createBookingForm])
 
     const displayResForm = () => {
@@ -64,6 +66,18 @@ const BookingCenterContainer = () => {
         displayGuestForm()
     }
 
+    const seatBooking = (submitted) => {
+        updateReservation(submitted, submitted.id)
+        getAllReservations()
+            .then(data => setAllReservations(data))
+    }
+
+    const departBooking = (submitted) => {
+        departReservation(submitted, submitted.id)
+        getAllReservations()
+            .then(data => setAllReservations(data))
+    }
+
 
     return (
         <aside className="booking-center">
@@ -73,7 +87,7 @@ const BookingCenterContainer = () => {
             </div>
             <NewBooking showForm={createBookingForm} allGuests={allGuests} allRestaurants={allRestaurants} onSubmittedBooking={createNewBooking}/>
             <NewGuest showGuestForm={createGuestForm} onSubmitGuest={createNewGuest}/>
-            <Reservations reservations={allReservations}/>
+            <Reservations reservations={allReservations} onSeatedBooking={seatBooking} onDepartedBooking={departBooking} allTables={allTables}/>
         </aside>
     );
 };

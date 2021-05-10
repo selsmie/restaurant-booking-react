@@ -33,4 +33,15 @@ const deleteReservation = (id) => {
     })
 }
 
-export {getAllReservations, createReservation, updateReservation, deleteReservation}
+const departReservation = (reservation, id) => {
+    return fetch(reservationURL + id + "/depart", {
+        method: "PUT",
+        body: JSON.stringify(reservation),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(res => res.json())
+}
+
+export {getAllReservations, createReservation, updateReservation, deleteReservation, departReservation}
