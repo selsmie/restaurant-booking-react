@@ -7,6 +7,7 @@ import NewBooking from "../components/NewBooking"
 import NewGuest from "../components/NewGuest"
 import "./BookingCenterContainer.css"
 import {getAllTables} from "../services/TableService"
+import TablesContainer from "./TablesContainer"
 
 const BookingCenterContainer = () => {
 
@@ -16,12 +17,15 @@ const BookingCenterContainer = () => {
     const [createBookingForm, setCreateBookingForm] = useState(false)
     const [createGuestForm, setCreateGuestForm] = useState(false)
     const [allTables, setAllTables] = useState([])
+    const [pageReload, setPageReload] = useState(0)
 
     useEffect(() => {
-        getAllTables()
-            .then(data => setAllTables(data))
-    }, [])
+        getAllRestaurants()
+            .then(data => setAllRestaurants(data))
 
+
+    }, [])
+    
     useEffect(() => {
         getAllGuests()
             .then(data => setAllGuests(data))
@@ -29,9 +33,9 @@ const BookingCenterContainer = () => {
         getAllReservations()
             .then(data => setAllReservations(data))
 
-        getAllRestaurants()
-            .then(data => setAllRestaurants(data))
-    }, [createBookingForm])
+        getAllTables()
+            .then(data => setAllTables(data))
+    }, [pageReload, createBookingForm, createGuestForm])
 
     const displayResForm = () => {
         if (!createBookingForm) {
@@ -66,20 +70,27 @@ const BookingCenterContainer = () => {
         displayGuestForm()
     }
 
+    const triggerReload = () => {
+        if(pageReload === 0) {
+            setPageReload(1)
+        } else {
+            setPageReload(0)
+        }
+    }
+
     const seatBooking = (submitted) => {
         updateReservation(submitted, submitted.id)
-        getAllReservations()
-            .then(data => setAllReservations(data))
+        triggerReload()
     }
 
     const departBooking = (submitted) => {
         departReservation(submitted, submitted.id)
-        getAllReservations()
-            .then(data => setAllReservations(data))
+        triggerReload()
     }
 
 
     return (
+        <>
         <aside className="booking-center">
             <div className="button-container">
                 {showCreateReservation}
@@ -89,6 +100,10 @@ const BookingCenterContainer = () => {
             <NewGuest showGuestForm={createGuestForm} onSubmitGuest={createNewGuest}/>
             <Reservations reservations={allReservations} onSeatedBooking={seatBooking} onDepartedBooking={departBooking} allTables={allTables}/>
         </aside>
+        <section>
+            <TablesContainer allTables={allTables}/>
+        </section>
+        </>
     );
 };
 

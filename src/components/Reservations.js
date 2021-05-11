@@ -21,18 +21,21 @@ const Reservations = ({reservations, onSeatedBooking, onDepartedBooking, allTabl
     }
 
     const checkIn = (evt) => {
-        reservations[evt.target.value].status = "seated"
-        reservations[evt.target.value].table = assignTable
-        onSeatedBooking(reservations[evt.target.value])
+        const resToCheckIn = reservations.find((reservation) => reservation.id === parseInt(evt.target.value))
+        resToCheckIn.status = "seated"
+        resToCheckIn.table = assignTable
+        onSeatedBooking(resToCheckIn)
     }
 
     const checkOut = (evt) => {
-        reservations[evt.target.value].status = "departed"
-        onDepartedBooking(reservations[evt.target.value])
+        const resToCheckOut = reservations.find((reservation) => reservation.id === parseInt(evt.target.value))
+        resToCheckOut.status = "departed"
+        onDepartedBooking(resToCheckOut)
     }
 
     const handleTableSelect = (evt) => {
-        setAssignTable(allTables[evt.target.value])
+        const foundTable = allTables.find((table) => table.id === parseInt(evt.target.value))
+        setAssignTable(foundTable)
     }
 
     const displayStatusButton = (reservation, index) => {
@@ -40,20 +43,25 @@ const Reservations = ({reservations, onSeatedBooking, onDepartedBooking, allTabl
             return <div>
                     <select onChange={handleTableSelect}>
                         <option value="disbabled">-</option>
-                        {displayTables}
+                        {displayTables(reservation.covers)}
                     </select>
-                    <button onClick={checkIn} value={index}>C/I</button>
+                    <button onClick={checkIn} value={reservation.id}>C/I</button>
                     </div>
         } else if (reservation.status === "seated") {
-            return <button value={index} onClick={checkOut}>C/O</button>
+            return <button value={reservation.id} onClick={checkOut}>C/O</button>
         } else {
             return null
         }
     }
 
-    
+    const filterEmptyTables = allTables.filter((table) => table.reservations.length === 0)
 
-    const displayTables = allTables.map((table, index) => <option value={index} key={index}>{table.number}</option>)
+    const displayTables = (covers) => {
+        const filterCapacityTables = filterEmptyTables.filter((table) => table.capacity >= covers)
+        return filterCapacityTables.map((table, index) => <option value={table.id} key={index}>{table.number}</option>)
+    }
+    
+    
 
     const displayAllBookings = (reservations.length) ? 
         reservations.map((reservation, index) => {
