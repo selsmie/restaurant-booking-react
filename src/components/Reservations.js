@@ -36,16 +36,19 @@ const Reservations = ({reservations, onSeatedBooking, onDepartedBooking, allTabl
     const handleTableSelect = (evt) => {
         const foundTable = allTables.find((table) => table.id === parseInt(evt.target.value))
         setAssignTable(foundTable)
+        // console.log(evt.target.value)
+        document.getElementById("checkin-button"+evt.target.id).style.display = "initial"
     }
 
-    const displayStatusButton = (reservation, index) => {
+    const displayStatusButton = (reservation) => {
         if(reservation.status === "booked"){
             return <div>
+                    <label>Table: </label>
                     <select onChange={handleTableSelect}>
                         <option value="disbabled">-</option>
                         {displayTables(reservation.covers)}
                     </select>
-                    <button onClick={checkIn} value={reservation.id}>C/I</button>
+                    <button onClick={checkIn} value={reservation.id} className="checkin-button" id={(reservation.table === null) ? "checkin-button" : "checkin-button"+reservation.table.id}>C/I</button>
                     </div>
         } else if (reservation.status === "seated") {
             return <button value={reservation.id} onClick={checkOut}>C/O</button>
@@ -66,7 +69,7 @@ const Reservations = ({reservations, onSeatedBooking, onDepartedBooking, allTabl
     const displayAllBookings = (reservations.length) ? 
         reservations.map((reservation, index) => {
             return <div key={index} className="single-booking" id={reservation.status}>
-                {displayStatusButton(reservation, index)}
+                {displayStatusButton(reservation)}
                 
                 <h3 id="booking-number">Booking Number: {reservation.id}</h3>
                 <h3 id="booking-date">Date: {reservation.date} - {reservation.time}</h3>
